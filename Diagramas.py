@@ -27,7 +27,7 @@ app.layout = html.Div([
         options=[
             {'label': 'Segmentación demográfica y sociodemográfica', 'value': 'demographic'},
             {'label': 'Evaluación de la vulnerabilidad y necesidades especiales', 'value': 'vulnerability'},
-            {'label': 'Análisis de la movilidad y migración estudiantil', 'value': 'mobility'}
+            {'label': 'Análisis de las ciudades donde estan los estudiantes', 'value': 'mobility'}
         ],
         value=None
     ),
@@ -49,7 +49,7 @@ def display_analysis(analysis):
         fig = px.bar(df, x="pob_vulnerable", y="num_students")
     elif analysis == 'mobility':
         df = pd.read_sql("SELECT lugar, COUNT(*) as num_students FROM Persona GROUP BY lugar", conn)
-        fig = px.area(df, x="lugar", y="num_students", title="Número de estudiantes por lugar")
+        fig = px.bar(df, x="lugar", y="num_students", title="Número de estudiantes por lugar")
     else:
         fig = {}
     conn.close()
